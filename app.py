@@ -154,6 +154,7 @@ class ApiStack(Stack):
             desired_count=2,
             public_load_balancer=True,
             listener_port=80,
+            security_groups= [crud_sg],
             task_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS),
             health_check_grace_period=Duration.seconds(60)
         )
