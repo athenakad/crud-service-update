@@ -1,6 +1,13 @@
 
 ## Architecture diagram
 
+This project deploys a CRUD API on AWS Fargate behind a public Application Load Balancer (ALB), 
+with an InfluxDB database running on a private EC2 instance. 
+The ALB receives traffic from the internet and securely routes it to the API containers in private subnets. 
+The setup includes auto-scaling, CloudWatch alarms, and SNS notifications for monitoring and high availability.
+
+
+
                                 ┌───────────────┐
                                 │   Internet    │
                                 └──────┬────────┘
