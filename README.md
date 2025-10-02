@@ -18,9 +18,9 @@ The setup includes auto-scaling, CloudWatch alarms, and SNS notifications for mo
                                └───────┬─────────┘
                                        │ HTTP:80
                          ┌─────────────▼─────────────┐
-                         │ ECS Fargate Service (CRUD) │
-                         │ 2 Tasks (Private Subnets)  │
-                         │ Container: CRUD API        │
+                         │ ECS Fargate Service (CRUD)│
+                         │ 2 Tasks (Private Subnets) │
+                         │ Container: CRUD API       │
                          │ Port: 8080                │
                          └─────────────┬─────────────┘
                                        │ TCP:8086
@@ -38,10 +38,8 @@ The setup includes auto-scaling, CloudWatch alarms, and SNS notifications for mo
                                        │
                        ┌───────────────▼───────────────┐
                        │     Private Subnets           │
-                       │ CRUD API + InfluxDB EC2      │
+                       │ CRUD API + InfluxDB EC2       │
                        └───────────────────────────────┘
-
-
 
 
 ## Deployment instructions
