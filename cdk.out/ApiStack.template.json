@@ -1,0 +1,1293 @@
+{
+ "Resources": {
+  "InfluxDBVPC65DDE087": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/Resource"
+   }
+  },
+  "InfluxDBVPCPublicSubnet1SubnetFEF2D514": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet1/Subnet"
+   }
+  },
+  "InfluxDBVPCPublicSubnet1RouteTableC6251C70": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet1/RouteTable"
+   }
+  },
+  "InfluxDBVPCPublicSubnet1RouteTableAssociationC356AB7F": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "InfluxDBVPCPublicSubnet1RouteTableC6251C70"
+    },
+    "SubnetId": {
+     "Ref": "InfluxDBVPCPublicSubnet1SubnetFEF2D514"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "InfluxDBVPCPublicSubnet1DefaultRoute8212F47F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "InfluxDBVPCIGW129164ED"
+    },
+    "RouteTableId": {
+     "Ref": "InfluxDBVPCPublicSubnet1RouteTableC6251C70"
+    }
+   },
+   "DependsOn": [
+    "InfluxDBVPCVPCGW60741E5B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "InfluxDBVPCPublicSubnet1EIPAF56F07C": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet1/EIP"
+   }
+  },
+  "InfluxDBVPCPublicSubnet1NATGateway78E76536": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "InfluxDBVPCPublicSubnet1EIPAF56F07C",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "InfluxDBVPCPublicSubnet1SubnetFEF2D514"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "InfluxDBVPCPublicSubnet1DefaultRoute8212F47F",
+    "InfluxDBVPCPublicSubnet1RouteTableAssociationC356AB7F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet1/NATGateway"
+   }
+  },
+  "InfluxDBVPCPublicSubnet2SubnetDBC0C445": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet2/Subnet"
+   }
+  },
+  "InfluxDBVPCPublicSubnet2RouteTable8678F493": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet2/RouteTable"
+   }
+  },
+  "InfluxDBVPCPublicSubnet2RouteTableAssociation2BEDB531": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "InfluxDBVPCPublicSubnet2RouteTable8678F493"
+    },
+    "SubnetId": {
+     "Ref": "InfluxDBVPCPublicSubnet2SubnetDBC0C445"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "InfluxDBVPCPublicSubnet2DefaultRouteC1926868": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "InfluxDBVPCIGW129164ED"
+    },
+    "RouteTableId": {
+     "Ref": "InfluxDBVPCPublicSubnet2RouteTable8678F493"
+    }
+   },
+   "DependsOn": [
+    "InfluxDBVPCVPCGW60741E5B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "InfluxDBVPCPrivateSubnet1Subnet0726A5B8": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.2.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PrivateSubnet1/Subnet"
+   }
+  },
+  "InfluxDBVPCPrivateSubnet1RouteTable8B9C8854": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PrivateSubnet1/RouteTable"
+   }
+  },
+  "InfluxDBVPCPrivateSubnet1RouteTableAssociationBF003276": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "InfluxDBVPCPrivateSubnet1RouteTable8B9C8854"
+    },
+    "SubnetId": {
+     "Ref": "InfluxDBVPCPrivateSubnet1Subnet0726A5B8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "InfluxDBVPCPrivateSubnet1DefaultRouteFE750ADA": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "InfluxDBVPCPublicSubnet1NATGateway78E76536"
+    },
+    "RouteTableId": {
+     "Ref": "InfluxDBVPCPrivateSubnet1RouteTable8B9C8854"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "InfluxDBVPCPrivateSubnet2Subnet800242D0": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.3.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PrivateSubnet2/Subnet"
+   }
+  },
+  "InfluxDBVPCPrivateSubnet2RouteTableF0A320B2": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PrivateSubnet2/RouteTable"
+   }
+  },
+  "InfluxDBVPCPrivateSubnet2RouteTableAssociationC50B991A": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "InfluxDBVPCPrivateSubnet2RouteTableF0A320B2"
+    },
+    "SubnetId": {
+     "Ref": "InfluxDBVPCPrivateSubnet2Subnet800242D0"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "InfluxDBVPCPrivateSubnet2DefaultRoute64DDB915": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "InfluxDBVPCPublicSubnet1NATGateway78E76536"
+    },
+    "RouteTableId": {
+     "Ref": "InfluxDBVPCPrivateSubnet2RouteTableF0A320B2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "InfluxDBVPCIGW129164ED": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBVPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/IGW"
+   }
+  },
+  "InfluxDBVPCVPCGW60741E5B": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "InfluxDBVPCIGW129164ED"
+    },
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBVPC/VPCGW"
+   }
+  },
+  "InfluxDBSG6B949B10": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for InfluxDB",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBSG/Resource"
+   }
+  },
+  "InfluxDBSGfromApiStackAPISG6A8458148086B3C6D2BD": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Allow CRUD service to connect to InfluxDB",
+    "FromPort": 8086,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "InfluxDBSG6B949B10",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "APISG13107CD2",
+      "GroupId"
+     ]
+    },
+    "ToPort": 8086
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBSG/from ApiStackAPISG6A845814:8086"
+   }
+  },
+  "APISG13107CD2": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for CRUD API",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/APISG/Resource"
+   }
+  },
+  "APISGfromApiStackCRUDServiceLBSecurityGroup470EDB36808094F2101A": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "FromPort": 8080,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "APISG13107CD2",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "CRUDServiceLBSecurityGroupBFDEBA95",
+      "GroupId"
+     ]
+    },
+    "ToPort": 8080
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/APISG/from ApiStackCRUDServiceLBSecurityGroup470EDB36:8080"
+   }
+  },
+  "InfluxDBInstanceInstanceRole76DD5EB7": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBInstance"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBInstance/InstanceRole/Resource"
+   }
+  },
+  "InfluxDBInstanceInstanceProfile2E6707BD": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "Roles": [
+     {
+      "Ref": "InfluxDBInstanceInstanceRole76DD5EB7"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBInstance/InstanceProfile"
+   }
+  },
+  "InfluxDBInstance9FF27510": {
+   "Type": "AWS::EC2::Instance",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "IamInstanceProfile": {
+     "Ref": "InfluxDBInstanceInstanceProfile2E6707BD"
+    },
+    "ImageId": {
+     "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "InstanceType": "t3.micro",
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "InfluxDBSG6B949B10",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetId": {
+     "Ref": "InfluxDBVPCPrivateSubnet1Subnet0726A5B8"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ApiStack/InfluxDBInstance"
+     }
+    ],
+    "UserData": {
+     "Fn::Base64": "#!/bin/bash\nsudo yum update -y\nsudo amazon-linux-extras install docker -y\nsudo service docker start\nsudo usermod -a -G docker ec2-user\ndocker run -d -p 8086:8086 --name influxdb influxdb:2.7"
+    }
+   },
+   "DependsOn": [
+    "InfluxDBInstanceInstanceRole76DD5EB7"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/InfluxDBInstance/Resource"
+   }
+  },
+  "CRUDClusterCCCB36A7": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterSettings": [
+     {
+      "Name": "containerInsights",
+      "Value": "enabled"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDCluster/Resource"
+   }
+  },
+  "TaskExecutionRole250D2532": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/TaskExecutionRole/Resource"
+   }
+  },
+  "TaskExecutionRoleDefaultPolicyA84DD1B0": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":ecr:us-east-1:",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":repository/",
+          {
+           "Fn::Sub": "cdk-hnb659fds-container-assets-${AWS::AccountId}-us-east-1"
+          }
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "CRUDTaskDefinitionCRUDContainerLogGroupA3E9941E",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "TaskExecutionRoleDefaultPolicyA84DD1B0",
+    "Roles": [
+     {
+      "Ref": "TaskExecutionRole250D2532"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/TaskExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "TaskRole30FC0FBB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/TaskRole/Resource"
+   }
+  },
+  "TaskRoleDefaultPolicy07FC53DE": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "TaskRoleDefaultPolicy07FC53DE",
+    "Roles": [
+     {
+      "Ref": "TaskRole30FC0FBB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/TaskRole/DefaultPolicy/Resource"
+   }
+  },
+  "CRUDTaskDefinition15F1BA04": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "INFLUXDB_URL",
+        "Value": "http://influxdb:8086"
+       },
+       {
+        "Name": "INFLUXDB_TOKEN",
+        "Value": "zoDOvYbWDgPkPN5PEqsvIh4pC4wysm9aWHyCTIxzrw8qVRpyni79kvcYZ1HVIuOIsnHrq-V5-AY9qCkN_xdWrA=="
+       },
+       {
+        "Name": "INFLUXDB_ORG",
+        "Value": "myorg"
+       },
+       {
+        "Name": "INFLUXDB_BUCKET",
+        "Value": "mybucket"
+       }
+      ],
+      "Essential": true,
+      "Image": {
+       "Fn::Sub": "${AWS::AccountId}.dkr.ecr.us-east-1.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-us-east-1:adaeb0430f978935d3f0a3317f3a934b47875fd4b15a49a3956051ca40d5230a"
+      },
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "CRUDTaskDefinitionCRUDContainerLogGroupA3E9941E"
+        },
+        "awslogs-stream-prefix": "crud-api",
+        "awslogs-region": "us-east-1"
+       }
+      },
+      "Name": "CRUDContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 8080,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "TaskExecutionRole250D2532",
+      "Arn"
+     ]
+    },
+    "Family": "ApiStackCRUDTaskDefinitionDEF7CE4B",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "TaskRole30FC0FBB",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDTaskDefinition/Resource"
+   }
+  },
+  "CRUDTaskDefinitionCRUDContainerLogGroupA3E9941E": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDTaskDefinition/CRUDContainer/LogGroup/Resource"
+   }
+  },
+  "CRUDServiceLB150F554C": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "CRUDServiceLBSecurityGroupBFDEBA95",
+       "GroupId"
+      ]
+     }
+    ],
+    "Subnets": [
+     {
+      "Ref": "InfluxDBVPCPublicSubnet1SubnetFEF2D514"
+     },
+     {
+      "Ref": "InfluxDBVPCPublicSubnet2SubnetDBC0C445"
+     }
+    ],
+    "Type": "application"
+   },
+   "DependsOn": [
+    "InfluxDBVPCPublicSubnet1DefaultRoute8212F47F",
+    "InfluxDBVPCPublicSubnet1RouteTableAssociationC356AB7F",
+    "InfluxDBVPCPublicSubnet2DefaultRouteC1926868",
+    "InfluxDBVPCPublicSubnet2RouteTableAssociation2BEDB531"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDService/LB/Resource"
+   }
+  },
+  "CRUDServiceLBSecurityGroupBFDEBA95": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Automatically created Security Group for ELB ApiStackCRUDServiceLB121446FD",
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow from anyone on port 80",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     }
+    ],
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDService/LB/SecurityGroup/Resource"
+   }
+  },
+  "CRUDServiceLBSecurityGrouptoApiStackAPISG6A84581480801C06412F": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "APISG13107CD2",
+      "GroupId"
+     ]
+    },
+    "FromPort": 8080,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "CRUDServiceLBSecurityGroupBFDEBA95",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "ToPort": 8080
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDService/LB/SecurityGroup/to ApiStackAPISG6A845814:8080"
+   }
+  },
+  "CRUDServiceLBPublicListener018DE029": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "CRUDServiceLBPublicListenerECSGroupB7442B77"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "CRUDServiceLB150F554C"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDService/LB/PublicListener/Resource"
+   }
+  },
+  "CRUDServiceLBPublicListenerECSGroupB7442B77": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "Port": 80,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "VpcId": {
+     "Ref": "InfluxDBVPC65DDE087"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDService/LB/PublicListener/ECSGroup/Resource"
+   }
+  },
+  "CRUDServiceA2E6DB4D": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "CRUDClusterCCCB36A7"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DesiredCount": 2,
+    "EnableECSManagedTags": false,
+    "HealthCheckGracePeriodSeconds": 60,
+    "LaunchType": "FARGATE",
+    "LoadBalancers": [
+     {
+      "ContainerName": "CRUDContainer",
+      "ContainerPort": 8080,
+      "TargetGroupArn": {
+       "Ref": "CRUDServiceLBPublicListenerECSGroupB7442B77"
+      }
+     }
+    ],
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "APISG13107CD2",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "InfluxDBVPCPrivateSubnet1Subnet0726A5B8"
+       },
+       {
+        "Ref": "InfluxDBVPCPrivateSubnet2Subnet800242D0"
+       }
+      ]
+     }
+    },
+    "TaskDefinition": {
+     "Ref": "CRUDTaskDefinition15F1BA04"
+    }
+   },
+   "DependsOn": [
+    "CRUDServiceLBPublicListenerECSGroupB7442B77",
+    "CRUDServiceLBPublicListener018DE029",
+    "TaskRoleDefaultPolicy07FC53DE",
+    "TaskRole30FC0FBB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDService/Service/Service"
+   }
+  },
+  "CRUDServiceTaskCountTarget5221E2AD": {
+   "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+   "Properties": {
+    "MaxCapacity": 10,
+    "MinCapacity": 2,
+    "ResourceId": {
+     "Fn::Join": [
+      "",
+      [
+       "service/",
+       {
+        "Ref": "CRUDClusterCCCB36A7"
+       },
+       "/",
+       {
+        "Fn::GetAtt": [
+         "CRUDServiceA2E6DB4D",
+         "Name"
+        ]
+       }
+      ]
+     ]
+    },
+    "RoleARN": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
+      ]
+     ]
+    },
+    "ScalableDimension": "ecs:service:DesiredCount",
+    "ServiceNamespace": "ecs"
+   },
+   "DependsOn": [
+    "TaskRoleDefaultPolicy07FC53DE",
+    "TaskRole30FC0FBB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDService/Service/TaskCount/Target/Resource"
+   }
+  },
+  "CRUDServiceTaskCountTargetCpuScaling8F6D0B35": {
+   "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+   "Properties": {
+    "PolicyName": "ApiStackCRUDServiceTaskCountTargetCpuScalingCB17A650",
+    "PolicyType": "TargetTrackingScaling",
+    "ScalingTargetId": {
+     "Ref": "CRUDServiceTaskCountTarget5221E2AD"
+    },
+    "TargetTrackingScalingPolicyConfiguration": {
+     "PredefinedMetricSpecification": {
+      "PredefinedMetricType": "ECSServiceAverageCPUUtilization"
+     },
+     "ScaleInCooldown": 60,
+     "ScaleOutCooldown": 60,
+     "TargetValue": 70
+    }
+   },
+   "DependsOn": [
+    "TaskRoleDefaultPolicy07FC53DE",
+    "TaskRole30FC0FBB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CRUDService/Service/TaskCount/Target/CpuScaling/Resource"
+   }
+  },
+  "AlarmTopicD01E77F9": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "DisplayName": "CRUD API Alarms"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/AlarmTopic/Resource"
+   }
+  },
+  "HighCPUAlarm56BE6E7D": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "AlarmTopicD01E77F9"
+     }
+    ],
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "DatapointsToAlarm": 2,
+    "Dimensions": [
+     {
+      "Name": "ClusterName",
+      "Value": {
+       "Ref": "CRUDClusterCCCB36A7"
+      }
+     },
+     {
+      "Name": "ServiceName",
+      "Value": {
+       "Fn::GetAtt": [
+        "CRUDServiceA2E6DB4D",
+        "Name"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "CPUUtilization",
+    "Namespace": "AWS/ECS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 80,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/HighCPUAlarm/Resource"
+   }
+  },
+  "HighMemoryAlarmB77DAB20": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "AlarmTopicD01E77F9"
+     }
+    ],
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "DatapointsToAlarm": 2,
+    "Dimensions": [
+     {
+      "Name": "ClusterName",
+      "Value": {
+       "Ref": "CRUDClusterCCCB36A7"
+      }
+     },
+     {
+      "Name": "ServiceName",
+      "Value": {
+       "Fn::GetAtt": [
+        "CRUDServiceA2E6DB4D",
+        "Name"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "MemoryUtilization",
+    "Namespace": "AWS/ECS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 80,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/HighMemoryAlarm/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31TwY7iMAz9lrmH7MCe9sgwsyOk0W5F0VyRCSZ4SZMqdkCo6r+v0lIKo9We/Pz8nLzY7UzPpj/08xOceWJ2x4mjrW5KAXNUcOZNg2amm8/aqMXefxYLVaStI1OmrUfJ3IhWIQmuYetw5EduzhwMgVDwN3EGb8sih18g7yB4hosqIp1AcDx46QWjx5ugd3LN5iJgDhV6USWaFEku7zGkuvPwX2LpbURmtfQs4A32V434QfzWaVtFUOlmFfo3DnHoKmLYk0NVBEem89mjVqFh3SxcYsGY+QH+hGghT4iPr7gnT8N8vjLBC5DHeMdde0uMJxoc97A04PLM8yGLkLxkA3EDzCisX4M5YlxWYPNSUHJNr7AOTBLi5QUYlQuWdfMR7G10A+7esqlB8k5Yz+vakenW+hFg9wIuD2L3xRs6YCHjAuy2nYK8Pc108+/u2N93l9/riAX9VTPgu/oaokW52b5LWwWjDJIENuDIW92M88ribpKPTB/WEcyRvC37vnHLD0Sr2LNu1qGm7qfpQKuMC2l3BjEH3cwdxCrXOtC2aoUcUuyXWECECvPH0W2nFLDkba78TlInaVVxkUPw377r6UxPn5/+MNEkJi9UoV718S/LQX8s1gMAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "ApiStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+   "Default": "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Outputs": {
+  "CRUDServiceLoadBalancerDNS70BA33D2": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CRUDServiceLB150F554C",
+     "DNSName"
+    ]
+   }
+  },
+  "CRUDServiceServiceURLF62D47BC": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "http://",
+      {
+       "Fn::GetAtt": [
+        "CRUDServiceLB150F554C",
+        "DNSName"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "LoadBalancerDNS": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CRUDServiceLB150F554C",
+     "DNSName"
+    ]
+   }
+  },
+  "ServiceURL": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "http://",
+      {
+       "Fn::GetAtt": [
+        "CRUDServiceLB150F554C",
+        "DNSName"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "AlarmTopicArn": {
+   "Value": {
+    "Ref": "AlarmTopicD01E77F9"
+   }
+  },
+  "InfluxDBPrivateIP": {
+   "Value": {
+    "Fn::GetAtt": [
+     "InfluxDBInstance9FF27510",
+     "PrivateIp"
+    ]
+   }
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

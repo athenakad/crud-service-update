@@ -136,14 +136,6 @@ class ApiStack(Stack):
                 "INFLUXDB_ORG": os.getenv("INFLUXDB_ORG"),
                 "INFLUXDB_BUCKET": os.getenv("INFLUXDB_BUCKET")
             },
-
-            health_check=ecs.HealthCheck(
-                command=["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"],
-                interval=Duration.seconds(30),
-                timeout=Duration.seconds(5),
-                retries=3,
-                start_period=Duration.seconds(60)
-            )
         )
         container.add_port_mappings(ecs.PortMapping(container_port=8080))
 

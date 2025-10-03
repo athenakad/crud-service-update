@@ -42,8 +42,8 @@ The setup includes auto-scaling, CloudWatch alarms, and SNS notifications for mo
                        └───────────────────────────────┘
 
 
-## Deployment instructions
-1) Create a Virtual Environment
+## Local Development
+1) Clone and setup environment
 ```
 python -m venv .venv
 source .venv/bin/activate
@@ -54,11 +54,47 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3) Build and Start the Docker Containers
+3) Configure environment variables
+Create .env file:
+```
+INFLUXDB_URL=http://influxdb:8086
+INFLUXDB_TOKEN=your-token-here
+INFLUXDB_ORG=your-org
+INFLUXDB_BUCKET=your-bucket
+```
+
+For AWS deployment, update the .env variables to point to your InfluxDB EC2 instance endpoint.
+
+4) Build and Start the Docker Containers
 ```
 docker-compose up --build
 ```
 
+The API will be available at http://localhost:8080
+
+## AWS Deployment
+
+Prerequisites:
+
+AWS CLI configured
+CDK installed: npm install -g aws-cdk
+export .env 
+
+
+- Validate CDK stack
+```
+cdk synth
+```
+
+- Deploy to AWS
+```
+cdk deploy
+```
+
+- Cleanup
+```
+cdk destroy
+```
 ## How to Test the Endpoints
 
 You can test the API either via the UI or the CLI. Make sure the Docker container is up and running before testing.
@@ -69,7 +105,7 @@ You can test the API either via the UI or the CLI. Make sure the Docker containe
 Query data with optional parameters such as measurement, start time, and limit:
 
 ```
-curl -X GET "http://127.0.0.1:8080/data"
+curl -X GET "http://localhost:8080/data"
 ```
 
 2) Create Data(POST)
@@ -77,7 +113,9 @@ curl -X GET "http://127.0.0.1:8080/data"
 Send a POST request to create new data:
 
 ```
-curl -X POST "http://127.0.0.1:8080/data" -H "Content-Type: application/json" -d '{"id": "sensor1", "value": 42.0}'
+curl -X POST "http://localhost:8080/data" \
+  -H "Content-Type: application/json" \
+  -d '{"id":"test","value":42.0}'
 
 ```
 
@@ -90,14 +128,14 @@ Data created successfully
 
 - If the id already exists:
 ```
-The id {} already exists
+The {id} already exists
 ```
 
 3) Update Data (PUT)
 ```
-curl -X PUT "http://127.0.0.1:8080/data/sensor1" \
--H "Content-Type: application/json" \
--d '{"id": "sensor1", "value": 55.0}'
+curl -X PUT "http://localhost:8080/data/sensor1" \
+  -H "Content-Type: application/json" \
+  -d '{"id":"test","value":55.0}'
 
 ```
 
@@ -106,18 +144,17 @@ curl -X PUT "http://127.0.0.1:8080/data/sensor1" \
 Delete data for a specific measurement:
 
 ```
-curl -X DELETE "http://127.0.0.1:8080/data/sensor1"
-
-
+curl -X DELETE "http://localhost:8080/data/test"
 ```
-Expected rsponse:
+
+Expected response:
 ```
 Data deleted successfully
 ```
 
 - If the id doesn't exist:
 ```
-The id {} doesn't exist
+The {id} doesn't exist
 ```
 
 5) Run Unit Tests
@@ -129,14 +166,3 @@ cd crud_service
 pip install httpx
 python -m pytest -v test_app.py
 ```
-
-6) Validate CDK code before deployment
-
-Ensure the CDK code is valid and generates the correct CloudFormation template before deploying to AWS.
-xport the necessary environment variables for InfluxDB connection(inside the .env file) before running the test.
-
-```
-cdk synth
-```
-
-This produced the json file that will be deployed in aws.
