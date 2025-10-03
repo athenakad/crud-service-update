@@ -1,16 +1,16 @@
 {
   "version": "48.0.0",
   "files": {
-    "e8130f6c5fbce973e9f8f50966df5edef2bb11251db1191fda46cf3d0e3e7117": {
+    "a919359ab7b9f51a4a8ea46f517582179a191fd77129fdc1c0e3200e18118bde": {
       "displayName": "ApiStack Template",
       "source": {
         "path": "ApiStack.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-us-east-1-d76e8e25": {
+        "current_account-us-east-1-4d7244a9": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-us-east-1",
-          "objectKey": "e8130f6c5fbce973e9f8f50966df5edef2bb11251db1191fda46cf3d0e3e7117.json",
+          "objectKey": "a919359ab7b9f51a4a8ea46f517582179a191fd77129fdc1c0e3200e18118bde.json",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-us-east-1"
         }
@@ -18,15 +18,15 @@
     }
   },
   "dockerImages": {
-    "adaeb0430f978935d3f0a3317f3a934b47875fd4b15a49a3956051ca40d5230a": {
+    "fdd59f363531705a1e9c62e1e06aaf336dd91014f3d13ddbb99331163551c7c1": {
       "displayName": "CRUDTaskDefinition/CRUDContainer/AssetImage",
       "source": {
-        "directory": "asset.adaeb0430f978935d3f0a3317f3a934b47875fd4b15a49a3956051ca40d5230a"
+        "directory": "asset.fdd59f363531705a1e9c62e1e06aaf336dd91014f3d13ddbb99331163551c7c1"
       },
       "destinations": {
-        "current_account-us-east-1-8801853b": {
+        "current_account-us-east-1-f7c922a3": {
           "repositoryName": "cdk-hnb659fds-container-assets-${AWS::AccountId}-us-east-1",
-          "imageTag": "adaeb0430f978935d3f0a3317f3a934b47875fd4b15a49a3956051ca40d5230a",
+          "imageTag": "fdd59f363531705a1e9c62e1e06aaf336dd91014f3d13ddbb99331163551c7c1",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-us-east-1"
         }

@@ -774,7 +774,7 @@
       ],
       "Essential": true,
       "Image": {
-       "Fn::Sub": "${AWS::AccountId}.dkr.ecr.us-east-1.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-us-east-1:adaeb0430f978935d3f0a3317f3a934b47875fd4b15a49a3956051ca40d5230a"
+       "Fn::Sub": "${AWS::AccountId}.dkr.ecr.us-east-1.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-us-east-1:fdd59f363531705a1e9c62e1e06aaf336dd91014f3d13ddbb99331163551c7c1"
       },
       "LogConfiguration": {
        "LogDriver": "awslogs",
@@ -1182,7 +1182,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31TwY7iMAz9lrmH7MCe9sgwsyOk0W5F0VyRCSZ4SZMqdkCo6r+v0lIKo9We/Pz8nLzY7UzPpj/08xOceWJ2x4mjrW5KAXNUcOZNg2amm8/aqMXefxYLVaStI1OmrUfJ3IhWIQmuYetw5EduzhwMgVDwN3EGb8sih18g7yB4hosqIp1AcDx46QWjx5ugd3LN5iJgDhV6USWaFEku7zGkuvPwX2LpbURmtfQs4A32V434QfzWaVtFUOlmFfo3DnHoKmLYk0NVBEem89mjVqFh3SxcYsGY+QH+hGghT4iPr7gnT8N8vjLBC5DHeMdde0uMJxoc97A04PLM8yGLkLxkA3EDzCisX4M5YlxWYPNSUHJNr7AOTBLi5QUYlQuWdfMR7G10A+7esqlB8k5Yz+vakenW+hFg9wIuD2L3xRs6YCHjAuy2nYK8Pc108+/u2N93l9/riAX9VTPgu/oaokW52b5LWwWjDJIENuDIW92M88ribpKPTB/WEcyRvC37vnHLD0Sr2LNu1qGm7qfpQKuMC2l3BjEH3cwdxCrXOtC2aoUcUuyXWECECvPH0W2nFLDkba78TlInaVVxkUPw377r6UxPn5/+MNEkJi9UoV718S/LQX8s1gMAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31TwY7iMAz9lrmH7MKe9sgwsyOk0W5F0VyRCaZ4SZMqdkCo6r+vklIKo9Ge/Pz8nLzY7UzPpj/19yc488TsjhNLW92WAuao4MybFs1Mtx+NUYu9+ygWqohbS6aMW4eSuBGtfBRcw9biyI/cnNkbAiHvbuIEXpdFCr9B3kDwDBdVBDqB4Hjw0gkGhzdB7+SazUXAHGp0oko0MZBc3oKPTfbwX2LpqoDMaulYwBnsrxrxg/g1aztFUOt25fs3DnHoKoLfk0VVeEsm++xRp9Cwbhc2smBI/AB/QaggTYiPL7gnR8N8PjPeCZDDcMdde0sMJxoc97A0YNPM0yELH50kA2EDzCisX7w5YljWUKWloKSaXmHjmcSHyzMwKusr1u27r26jG3B+y6YBSTthPW8aSyav9d3D7hlsGsTukze0wELGethts4JcdZrp9uvu0N93l9/riAXdVTPgu/oaQoVys32XdgpGGUTxbMCSq3Q7ziuJ8yQfmT6sA5gjuars+8YtPxCdYse6XfuG8k+TQaeM9XF3BjEH3c4thDrVMug6tUL2MfRLLCBAjenjyNspBSpyVar8idJE6VRxkYN3337o6VRPZ09/mWgSohOqUa/6+A8YPsI31gMAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "ApiStack/CDKMetadata/Default"

@@ -77,13 +77,13 @@ The API will be available at http://localhost:8080
 Prerequisites:
 
 AWS CLI configured
-CDK installed: npm install -g aws-cdk
+CDK installed: pip install aws-cdk-lib constructs
 export .env 
 
 
 - Validate CDK stack
 ```
-cdk synth
+cc
 ```
 
 - Deploy to AWS
