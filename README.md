@@ -83,7 +83,7 @@ export .env
 
 - Validate CDK stack
 ```
-cc
+cdk synth
 ```
 
 - Deploy to AWS
@@ -163,6 +163,6 @@ To run the API unit tests:
 
 ```
 cd crud_service
-pip install httpx
+pip install "httpx<0.28" --force-reinstall
 python -m pytest -v test_app.py
 ```
