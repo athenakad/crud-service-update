@@ -10,15 +10,8 @@ from app import app
 client = TestClient(app)
 
 
+
 class TestFastAPIApp(unittest.TestCase):
-    def setUp(self):
-        """Reset dependency overrides before each test"""
-        app.dependency_overrides = {}
-
-    def tearDown(self):
-        """Clean up dependency overrides after each test"""
-        app.dependency_overrides = {}
-
     @patch('app.InfluxDBClient')
     def test_post_data_success(self, mock_influx_client):
         mock_client_instance = MagicMock()
@@ -29,7 +22,7 @@ class TestFastAPIApp(unittest.TestCase):
         mock_client_instance.write_api.return_value = mock_write_api
 
         mock_query_api = MagicMock()
-        mock_query_api.query.return_value = []  # no duplicates
+        mock_query_api.query.return_value = []
         mock_client_instance.query_api.return_value = mock_query_api
 
         response = client.post("/data", json={"id": "test", "value": 42.0})
@@ -129,7 +122,7 @@ class TestFastAPIApp(unittest.TestCase):
         mock_influx_client.return_value = mock_client_instance
 
         mock_query_api = MagicMock()
-        mock_query_api.query.return_value = []  # no record
+        mock_query_api.query.return_value = []
         mock_client_instance.query_api.return_value = mock_query_api
 
         response = client.delete("/data/missing_id")
